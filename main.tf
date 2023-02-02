@@ -14,14 +14,12 @@ module "eks" {
   cluster_addons = {
     coredns = {
       resolve_conflicts = "OVERWRITE"
-      most_recent       = true
     }
     kube-proxy = {
-      most_recent = true
+      resolve_conflicts = "OVERWRITE"
     }
     vpc-cni = {
       resolve_conflicts = "OVERWRITE"
-      most_recent       = true
     }
   }
 
