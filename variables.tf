@@ -18,13 +18,13 @@ variable "azs" {
   type        = list(string)
 }
 
-variable "public_subnets" {
-  description = "a list of public subnets"
+variable "private_subnets" {
+  description = "a list of private subnets"
   type        = list(string)
 }
 
-variable "private_subnets" {
-  description = "a list of private subnets"
+variable "public_subnets" {
+  description = "a list of public subnets"
   type        = list(string)
 }
 
@@ -36,6 +36,23 @@ variable "cluster_name" {
 variable "cluster_version" {
   description = "the EKS Kubernetes version"
   type        = string
+}
+
+###############
+### OPTIONAL VARIABLES
+###############
+variable "enable_nat_gateway" {
+  description = "a flag to enable/disable NAT gateway"
+  type        = bool
+
+  default = true
+}
+
+variable "enable_dns_hostnames" {
+  description = "a flag to enable/disable VPC hostnames"
+  type        = bool
+
+  default = true
 }
 
 variable "enable_cluster_public_access" {
@@ -53,6 +70,7 @@ variable "node_pools" {
     min_size       = number
     max_size       = number
     disk_size      = optional(number, 20)
+    capacity_type  = optional(string, "ON_DEMAND")
     instance_types = list(string)
     labels         = map(string)
     taints = map(object({
